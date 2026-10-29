@@ -85,9 +85,11 @@ The bot, goose and the guide run on one host machine. Only the prompt leaves it,
 
 The community guide is the bot's only source of facts. Changing what the bot says means editing the guide, not the code.
 
-**The guide** (`guides/drf-community-guide.md`, or the file in `GUIDE_PATH`)
+**The guide** (`skills/drf-community-guide/SKILL.md`, or the file in `GUIDE_PATH`)
 
-- Plain Markdown, public information only. The bot may quote anything in it.
+- Markdown in the goose skill format: a `name` and `description` block at the top, then the guide. Public information only. The bot may quote anything in it.
+- The bot sends the whole guide in every prompt and leaves out the `name` and `description` block. It does not let goose load the guide as a skill, because goose loads a skill only when it decides the question matches, and skills need goose extensions that the bot turns off.
+- People can copy the same folder to `~/.agents/skills/` to use the guide in their own goose. A plain Markdown file without the top block also works with the bot.
 - Must contain a `Last reviewed: <Month Day, Year>` line. Drafts show a warning when it is older than 30 days.
 - Every URL in the guide is an approved link. Every `<#id>` mention is an approved public channel.
 - Private channels, meeting passwords and personal data stay out of it.
@@ -146,7 +148,7 @@ All settings live in `.env`, which is never committed. [`.env.example`](../.env.
 | `GOOSE_BIN` | No | Path to goose. Default `goose` |
 | `GOOSE_MODEL` | No | Model override. Empty uses goose's configured model |
 | `GOOSE_TIMEOUT_SECONDS` | No | Time limit for one draft. Default 120 |
-| `GUIDE_PATH` | No | Path to the guide. Default `guides/drf-community-guide.md` |
+| `GUIDE_PATH` | No | Path to the guide. Default `skills/drf-community-guide/SKILL.md` |
 
 **Discord app settings:** Public Bot off; no privileged intents; permissions View Channels, Send Messages, Send Messages in Threads, Read Message History; scopes `bot` and `applications.commands`.
 
@@ -163,7 +165,7 @@ The bot runs as one Node.js process on the operator's machine, next to goose. It
 | Syntax check | `npm run check` |
 | Reload the guide without a restart | `/leafy-reload` in Discord |
 
-**Unit tests** (14) cover guide loading, `NO_ANSWER`, link and channel warnings, meta-comment warnings, footer and dash clean-up, length limits, prompt-marker escapes (including nested tags), removal of `DISCORD_*` secrets, goose errors that never repeat the prompt, and the goose safety flags (with a fake goose).
+**Unit tests** (17) cover guide loading, the skill format of the DRF guide (the top block is never sent to the model), `NO_ANSWER`, link and channel warnings, meta-comment warnings, footer and dash clean-up, length limits, prompt-marker escapes (including nested tags), removal of `DISCORD_*` secrets, goose errors that never repeat the prompt, and the goose safety flags (with a fake goose).
 
 **Evals** (14 questions in `test/eval-questions.json`) check real answers: Touchpoints for newcomers, the Unconference for ideas, no invented dates, no private channels, English for a Spanish question, no Django confusion, and `NO_ANSWER` for off-topic and injection attempts.
 
@@ -183,6 +185,7 @@ The bot runs as one Node.js process on the operator's machine, next to goose. It
 - [Governance issue #179: Build AI-assisted Discord community guide with goose](https://github.com/DevRel-Foundation/governance/issues/179)
 - [goose (Agentic AI Foundation)](https://github.com/aaif-goose/goose)
 - [goose run options](https://www.mankier.com/1/goose-run)
+- [goose: Using skills](https://goose-docs.ai/docs/guides/context-engineering/using-skills)
 - [DRF Community Touchpoints](https://dev-rel.org/community/touchpoints)
 - [How the 2027 DRF Unconference works](https://github.com/DevRel-Foundation/governance/discussions/173)
 - [DRF Code of Conduct](https://github.com/DevRel-Foundation/governance/blob/main/code_of_conduct.md)
