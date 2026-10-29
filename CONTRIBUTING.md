@@ -24,7 +24,7 @@ npm run check   # syntax check
 - Add or update tests in `test/` for any change to `lib/guide.js`.
 - Do not weaken a control listed in [SECURITY.md](SECURITY.md) without discussing it in an issue first.
 - Never commit `.env`, tokens, user IDs, meeting links with passwords, or other personal data.
-- Changes to `guides/drf-community-guide.md` should cite an official DRF source.
+- Changes to `skills/drf-community-guide/SKILL.md` should cite an official DRF source. Keep its `name` the same as the folder name.
 
 ## Writing style
 
