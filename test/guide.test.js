@@ -16,6 +16,30 @@ test("loads the review date, links and public channel IDs from the guide", () =>
   assert.ok(guide.channelIds.has("111111111111111111"));
 });
 
+test("the skill frontmatter is read but never sent to the model", () => {
+  assert.equal(guide.meta.name, "test-guide");
+  assert.ok(!guide.text.includes("---"));
+  assert.ok(!guide.text.includes("description:"));
+  assert.ok(g.buildPrompt(guide, "hi").includes("Last reviewed: October 27, 2026"));
+});
+
+test("a plain Markdown guide without frontmatter still works", () => {
+  const tmp = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "guide-")), "guide.md");
+  fs.writeFileSync(tmp, "# Plain\n\nLast reviewed: October 27, 2026\n");
+  const plain = g.loadGuide(tmp);
+  assert.deepEqual(plain.meta, {});
+  assert.ok(plain.text.startsWith("# Plain"));
+});
+
+test("the DRF guide is a valid skill", () => {
+  const dir = path.join(__dirname, "..", "skills", "drf-community-guide");
+  const drf = g.loadGuide(path.join(dir, "SKILL.md"));
+  assert.equal(drf.meta.name, path.basename(dir)); // goose needs the name to match the folder
+  assert.match(drf.meta.name, /^[a-z0-9-]+$/);
+  assert.ok(drf.meta.description && drf.meta.description.length <= 1024);
+  assert.ok(drf.allowedUrls.has("https://dev-rel.org/community/touchpoints"));
+});
+
 test("a guide without a review date is refused", () => {
   const tmp = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "guide-")), "guide.md");
   fs.writeFileSync(tmp, "# No date here\n");
