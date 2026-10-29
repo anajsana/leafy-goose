@@ -1,0 +1,12 @@
+# Secrets: never commit these
+.env
+.env.*
+!.env.example
+
+# Local backups (they can contain copies of .env)
+backup*/
+
+# Dependencies and logs
+node_modules/
+*.log
+.DS_Store

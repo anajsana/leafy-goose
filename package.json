@@ -1,0 +1,21 @@
+{
+  "name": "leafy-goose",
+  "version": "0.1.0",
+  "description": "Human-reviewed AI community assistant for Discord, powered by goose. Built for the DRF community.",
+  "private": true,
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node --test test/*.test.js",
+    "eval": "node scripts/eval.js",
+    "check": "node --check index.js && node --check lib/guide.js && node --check scripts/eval.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.27.0",
+    "dotenv": "^18.0.8"
+  }
+}
