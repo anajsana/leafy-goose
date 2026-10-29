@@ -55,11 +55,14 @@ In Discord, turn on **User Settings → Advanced → Developer Mode**. Then righ
 
 ## Step 3: Write your community guide
 
-The guide is the only thing the bot knows. Start from [guides/drf-community-guide.md](guides/drf-community-guide.md):
+The guide is the only thing the bot knows. It is written as a goose skill, so the same file also works in your own goose. Start from [skills/drf-community-guide/SKILL.md](skills/drf-community-guide/SKILL.md):
 
-1. Copy it to a new file, for example `guides/my-community-guide.md`.
-2. Replace the facts, links and public channel IDs with your own.
-3. Keep the line `Last reviewed: <Month Day, Year>`. Drafts show a warning when the guide is older than 30 days.
+1. Copy the folder, for example to `skills/my-community-guide/`.
+2. At the top of `SKILL.md`, change `name` to the new folder name and update `description`.
+3. Replace the facts, links and public channel IDs with your own.
+4. Keep the line `Last reviewed: <Month Day, Year>`. Drafts show a warning when the guide is older than 30 days.
+
+The bot always sends the whole guide to goose, so every draft has every fact. It does not send the `name` and `description` block at the top.
 
 Only put public information in the guide. The bot may quote anything in it. No passwords, private links, private channels or personal data.
 
@@ -80,7 +83,7 @@ Copy `.env.example` to `.env` and fill it in:
 | `DISCORD_GUILD_ID` | Your server ID |
 | `DISCORD_ALLOWED_USER_ID` | Reviewer user IDs, comma-separated |
 | `DISCORD_ALLOWED_CHANNEL_IDS` | Optional. Channels where the bot works, comma-separated |
-| `GUIDE_PATH` | Your guide, for example `guides/my-community-guide.md` |
+| `GUIDE_PATH` | Your guide, for example `skills/my-community-guide/SKILL.md` |
 
 `.env` holds your secrets. It is never committed (it is in `.gitignore`). Do not share it.
 
@@ -116,12 +119,18 @@ Test first in a private channel: add the bot to it under **Edit Channel → Perm
 
 When the bot has no approved answer, it says so. Answer by hand, then add the missing facts to the guide.
 
+## Use the guide in your own goose
+
+Reviewers can also use the guide when they write answers by hand. Copy the `skills/drf-community-guide` folder to `~/.agents/skills/` and restart goose. Then ask goose, for example, "Use the drf-community-guide skill to answer this question".
+
+This is optional. The bot does not need it, and it does not use goose skills or extensions.
+
 ## Project layout
 
 ```
 index.js                       Discord bot: commands, draft buttons, edit form, publish
 lib/guide.js                   Loads the guide, builds the prompt, runs goose, checks answers
-guides/drf-community-guide.md  Example guide for the DRF community
+skills/drf-community-guide/    DRF community guide, also a goose skill (SKILL.md)
 scripts/eval.js                Runs the eval questions through goose
 test/                          Unit tests and eval questions
 docs/SPEC.md                   Specification
