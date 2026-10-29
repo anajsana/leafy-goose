@@ -1,3 +1,8 @@
+---
+name: drf-community-guide
+description: Approved facts, links and public Discord channels for the Developer Relations Foundation (DRF) community. Use it to draft answers about DRF, Community Touchpoints, the 2027 DRF Unconference, contributing and conduct.
+---
+
 # DRF Community Guide
 
 Last reviewed: October 27, 2026
