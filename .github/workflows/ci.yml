@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - name: No secrets in the repository
+        run: |
+          if git ls-files | grep -E '(^|/)\.env(\.|$)|(^|/)backup' | grep -vE '(^|/)\.env\.example$'; then
+            echo "A .env or backup file is tracked. Remove it." && exit 1
+          fi
+          if git grep -nE '[MNO][A-Za-z0-9_-]{23,27}\.[A-Za-z0-9_-]{6}\.[A-Za-z0-9_-]{27,}' -- . ':!package-lock.json'; then
+            echo "Something that looks like a Discord token was found." && exit 1
+          fi
