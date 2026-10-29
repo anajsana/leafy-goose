@@ -1,7 +1,7 @@
-// Run the test questions through goose without Discord.
-//   npm run eval                 → all questions
-//   npm run eval -- -v           → also print every answer
-//   npm run eval -- unconference → only questions containing "unconference"
+// Run the test questions through goose without Discord
+//   npm run eval                  all questions
+//   npm run eval -- -v            also print every answer
+//   npm run eval -- unconference  only questions containing "unconference"
 require("dotenv").config();
 const guideLib = require("../lib/guide");
 const cases = require("../test/eval-questions.json");
