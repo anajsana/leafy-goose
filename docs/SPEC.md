@@ -4,11 +4,11 @@ Last updated: October 29, 2026
 
 Leafy Goose is a Discord assistant for the Developer Relations Foundation (DRF) community. It drafts answers with goose, and a DRF moderator, lead maintainer or community manager reviews every draft before anything is posted.
 
-## Goals and non-goals
+## Overview
 
 The bot helps reviewers answer common questions faster, with facts from one approved guide. A human always decides what is posted.
 
-**Goals**
+**What is for**
 
 1. Draft short, correct answers to common DRF questions in English.
 2. Lead members to one clear next step. During the governance transition this is a **Community Touchpoint** or the **2027 DRF Unconference**.
@@ -117,7 +117,7 @@ The community guide is the bot's only source of facts. Changing what the bot say
 
 ## Security and privacy
 
-The main control is human review: nothing reaches members without a reviewer's click. The other controls limit what the model and the bot can do.
+Nothing reaches members without a reviewer's click. The other controls limit what the model and the bot can do:
 
 | Risk | Control | Where |
 | --- | --- | --- |
@@ -132,7 +132,7 @@ The main control is human review: nothing reaches members without a reviewer's c
 | Secrets in the repository | `.env` and backups are in `.gitignore`; CI fails on tracked `.env` files or token-like strings | `.gitignore`, CI |
 | Abuse of the bot's reach | Public Bot off; minimum permissions; no privileged intents | Developer Portal |
 
-**Privacy.** Member text goes to the model provider configured in goose (for example a ChatGPT account). The footer on every published message says the answer is AI-assisted and names the reviewer.
+**Privacy.** Member text goes to the model provider configured in goose. The footer on every published message says the answer is AI-assisted and names the reviewer.
 
 ## Configuration
 
@@ -171,21 +171,8 @@ The bot runs as one Node.js process on the operator's machine, next to goose. It
 
 **CI** (GitHub Actions) runs the syntax check and unit tests on every push and pull request, with read-only permissions, and fails if a `.env` file or a token-like string is committed. Dependabot updates npm packages weekly and Actions monthly.
 
-## Open questions
+## Open Questions / Future Plans
 
-- [ ] Is Apache 2.0 the right license? It matches most Linux Foundation projects.
-- [ ] Should the repository live in a personal account first, or move to the DevRel-Foundation organization?
-- [ ] Who are the reviewers besides the operator? Their user IDs go in `DISCORD_ALLOWED_USER_ID`.
-- [ ] Where does the bot run long term? A personal machine stops when it sleeps; a small server or LF infrastructure would not.
-- [ ] Which model account should a DRF deployment use? A personal ChatGPT account shares its limits and stops if the owner leaves.
-- [ ] Who reviews the guide every 30 days?
-
-## Sources
-
-- [Governance issue #179: Build AI-assisted Discord community guide with goose](https://github.com/DevRel-Foundation/governance/issues/179)
-- [goose (Agentic AI Foundation)](https://github.com/aaif-goose/goose)
-- [goose run options](https://www.mankier.com/1/goose-run)
-- [goose: Using skills](https://goose-docs.ai/docs/guides/context-engineering/using-skills)
-- [DRF Community Touchpoints](https://dev-rel.org/community/touchpoints)
-- [How the 2027 DRF Unconference works](https://github.com/DevRel-Foundation/governance/discussions/173)
-- [DRF Code of Conduct](https://github.com/DevRel-Foundation/governance/blob/main/code_of_conduct.md)
+- [ ] Who are the reviewers besides the operator? Their user IDs go in `DISCORD_ALLOWED_USER_ID`
+- [ ] Where does the bot run long term? A personal machine stops when it sleeps (a small server or LF infrastructure would not)
+- [ ] Who reviews the guide?
