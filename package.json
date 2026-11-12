@@ -15,7 +15,7 @@
     "check": "node --check index.js && node --check lib/guide.js && node --check scripts/eval.js"
   },
   "dependencies": {
-    "discord.js": "^14.27.0",
+    "discord.js": "^14.28.1",
     "dotenv": "^18.0.9"
   }
 }
